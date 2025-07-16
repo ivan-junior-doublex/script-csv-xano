@@ -48,6 +48,9 @@ def cruzar_dados_csvs():
         # Mapear produtos_id usando o mapeamento criado
         df_resultado['produtos_id'] = df_resultado['produtos_vendor_id'].map(mapeamento_produtos)
         
+        # Adicionar coluna com valor fixo para importação
+        df_resultado['importacao_temp'] = '16_07_2025_08_26'
+        
         # Verificar quantos registros foram mapeados com sucesso
         mapeados = df_resultado['produtos_id'].notna().sum()
         nao_mapeados = df_resultado['produtos_id'].isna().sum()

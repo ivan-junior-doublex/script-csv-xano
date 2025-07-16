@@ -12,7 +12,7 @@ def cruzar_dados_csvs_sem_pandas():
     print("Iniciando o cruzamento de dados (versão sem pandas)...")
     
     # Verificar se os arquivos existem
-    arquivo_fornecedor = "produtos_fornecedor_vendor_dev.csv"
+    arquivo_fornecedor = "produtos_fornecedor_vendor_prod.csv"
     arquivo_produtos = "produtos.csv"
     
     if not os.path.exists(arquivo_fornecedor):
@@ -44,7 +44,7 @@ def cruzar_dados_csvs_sem_pandas():
         print(f"Mapeamento criado com {len(mapeamento_produtos)} produtos únicos")
         
         # Processar o arquivo fornecedor e gerar o resultado
-        print("Processando arquivo produtos_fornecedor_vendor_dev.csv...")
+        print("Processando arquivo produtos_fornecedor_vendor_prod.csv...")
         arquivo_saida = "produtos_fornecedor_vendor_atualizado.csv"
         
         mapeados = 0
@@ -56,8 +56,8 @@ def cruzar_dados_csvs_sem_pandas():
             
             reader = csv.DictReader(entrada, delimiter=',')
             
-            # Preparar o writer com as mesmas colunas
-            fieldnames = reader.fieldnames
+            # Preparar o writer com as colunas originais + nova coluna
+            fieldnames = list(reader.fieldnames) + ['importacao_temp']
             writer = csv.DictWriter(saida, fieldnames=fieldnames)
             writer.writeheader()
             
@@ -72,6 +72,9 @@ def cruzar_dados_csvs_sem_pandas():
                 else:
                     linha['produtos_id'] = '0'  # Manter padrão original
                     nao_mapeados += 1
+                
+                # Adicionar coluna com valor fixo para importação
+                linha['importacao_temp'] = '16_07_2025_08_26'
                 
                 writer.writerow(linha)
                 total_registros += 1
