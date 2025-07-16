@@ -10,7 +10,7 @@ def cruzar_dados_csvs():
     print("Iniciando o cruzamento de dados...")
     
     # Verificar se os arquivos existem
-    arquivo_fornecedor = "produtos_fornecedor_vendor_dev.csv"
+    arquivo_fornecedor = "produtos_fornecedor_vendor_prod.csv"
     arquivo_produtos = "produtos.csv"
     
     if not os.path.exists(arquivo_fornecedor):
